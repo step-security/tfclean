@@ -57,14 +57,14 @@ runs:
             ;;
         esac
         
-        BINARY="tfclean_linux_${ARCH}"
+        BINARY="tfclean_Linux_${ARCH}"
         DOWNLOAD_URL="https://github.com/takaishi/tfclean/releases/download/${VERSION}/${BINARY}.tar.gz"
         CHECKSUMS_URL="https://github.com/takaishi/tfclean/releases/download/${VERSION}/checksums.txt"
 
         curl -sLO "$DOWNLOAD_URL"
         curl -sLO "$CHECKSUMS_URL"
 
-        grep -i "${BINARY}.tar.gz" checksums.txt | sha256sum -c -
+        grep "${BINARY}.tar.gz" checksums.txt | sha256sum -c -
 
         tar xzf "${BINARY}.tar.gz"
         sudo mv tfclean /usr/local/bin/
