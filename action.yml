@@ -1,6 +1,6 @@
 name: 'Setup tfclean'
 description: 'Setup tfclean in your GitHub Actions workflow'
-author: 'takaishi'
+author: 'step-security'
 
 inputs:
   version:
@@ -11,6 +11,28 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Validate subscription
+      shell: bash
+      run: |
+        # validate subscription status
+        API_URL="https://agent.api.stepsecurity.io/v1/github/$GITHUB_REPOSITORY/actions/subscription"
+
+        # Set a timeout for the curl command (3 seconds)
+        RESPONSE=$(curl --max-time 3 -s -w "%{http_code}" "$API_URL" -o /dev/null) || true
+        CURL_EXIT_CODE=$?
+
+        # Decide based on curl exit code and HTTP status
+        if [ $CURL_EXIT_CODE -ne 0 ]; then
+          echo "Timeout or API not reachable. Continuing to next step."
+        elif [ "$RESPONSE" = "200" ]; then
+          :
+        elif [ "$RESPONSE" = "403" ]; then
+          echo "Subscription is not valid. Reach out to support@stepsecurity.io"
+          exit 1
+        else
+          echo "Timeout or API not reachable. Continuing to next step."
+        fi
+        
     - name: Download tfclean
       shell: bash
       working-directory: /tmp
@@ -37,7 +59,14 @@ runs:
         
         BINARY="tfclean_linux_${ARCH}"
         DOWNLOAD_URL="https://github.com/takaishi/tfclean/releases/download/${VERSION}/${BINARY}.tar.gz"
-        curl -sL "$DOWNLOAD_URL" | tar xz
+        CHECKSUMS_URL="https://github.com/takaishi/tfclean/releases/download/${VERSION}/checksums.txt"
+
+        curl -sLO "$DOWNLOAD_URL"
+        curl -sLO "$CHECKSUMS_URL"
+
+        grep "${BINARY}.tar.gz" checksums.txt | sha256sum -c -
+
+        tar xzf "${BINARY}.tar.gz"
         sudo mv tfclean /usr/local/bin/
         chmod +x /usr/local/bin/tfclean
 

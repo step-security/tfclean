@@ -2,15 +2,6 @@
 
 tfclean is a tool for cleaning up Terraform configuration files by automatically removing applied moved, import, and removed blocks. This helps maintain clean and readable Terraform configurations by eliminating blocks that have already served their purpose.
 
-## Installation
-
-### Using Homebrew
-
-```bash
-brew tap takaishi/tap
-brew install takaishi/tap/tfclean
-```
-
 ### Using go install
 
 ```bash
@@ -114,23 +105,23 @@ jobs:
   tfclean:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       # Setup GitHub App token for PR creation
-      - uses: actions/create-github-app-token@v1
+      - uses: actions/create-github-app-token@v2
         id: app-token
         with:
           app-id: ${{ secrets.GITHUB_APP_ID }}
           private-key: ${{ secrets.GITHUB_APP_PRIVATE_KEY }}
       
       # Configure AWS credentials if using remote state
-      - uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: "aws_role_arn_for_oidc"
           aws-region: "ap-northeast-1"
       
       # Install tfclean
-      - uses: step-security/tfclean@v1
+      - uses: step-security/tfclean@v0
         
       # Run tfclean
       - run: tfclean --tfstate s3://path/to/tfstate /path/to/tffiles
