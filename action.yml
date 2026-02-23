@@ -64,7 +64,7 @@ runs:
         curl -sLO "$DOWNLOAD_URL"
         curl -sLO "$CHECKSUMS_URL"
 
-        grep "${BINARY}.tar.gz" checksums.txt | sha256sum -c -
+        grep -i "${BINARY}.tar.gz" checksums.txt | sha256sum -c -
 
         tar xzf "${BINARY}.tar.gz"
         sudo mv tfclean /usr/local/bin/
