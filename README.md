@@ -2,53 +2,16 @@
 
 tfclean is a tool for cleaning up Terraform configuration files by automatically removing applied moved, import, and removed blocks. This helps maintain clean and readable Terraform configurations by eliminating blocks that have already served their purpose.
 
-### Using go install
-
-```bash
-# Install specified version
-go install github.com/step-security/tfclean/cmd/tfclean@v0.0.13
-
-# Install latest version
-go install github.com/step-security/tfclean/cmd/tfclean@latest
-```
-
-### Using aqua
-
-[aqua](https://aquaproj.github.io/) is a declarative CLI Version Manager. You can install tfclean using aqua:
-
-```bash
-aqua g -i step-security/tfclean
-```
-
-Or add to your `aqua.yaml`:
-
-```yaml
-registries:
-  - type: standard
-    ref: v4.292.0 # renovate: depName=aquaproj/aqua-registry
-packages:
-  - name: step-security/tfclean@v0.7.0  # Use the latest version
-```
-
-Then run:
-
-```bash
-aqua i
-```
-
 ### Using GitHub Actions
 
 You can use the official GitHub Action to install tfclean in your workflows:
 
 ```yaml
-- uses: step-security/tfclean@v1
+- uses: step-security/tfclean@v0
   with:
     version: 'latest' # Optional, defaults to latest
 ```
 
-### Manual Installation
-
-Download the appropriate binary for your system from the [releases page](https://github.com/step-security/tfclean/releases).
 
 ## Usage
 
