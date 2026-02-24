@@ -58,8 +58,8 @@ runs:
         esac
         
         BINARY="tfclean_Linux_${ARCH}"
-        DOWNLOAD_URL="https://github.com/takaishi/tfclean/releases/download/${VERSION}/${BINARY}.tar.gz"
-        CHECKSUMS_URL="https://github.com/takaishi/tfclean/releases/download/${VERSION}/checksums.txt"
+        DOWNLOAD_URL="https://github.com/step-security/tfclean/releases/download/${VERSION}/${BINARY}.tar.gz"
+        CHECKSUMS_URL="https://github.com/step-security/tfclean/releases/download/${VERSION}/checksums.txt"
 
         curl -sLO "$DOWNLOAD_URL"
         curl -sLO "$CHECKSUMS_URL"

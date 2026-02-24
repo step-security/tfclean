@@ -4,7 +4,7 @@ build:
 
 .PHONY: install
 install:
-	go install github.com/takaishi/tfclean/cmd/tfclean
+	go install github.com/step-security/tfclean/cmd/tfclean
 
 .PHONY: test
 test:
