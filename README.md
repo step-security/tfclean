@@ -1,3 +1,5 @@
+[![StepSecurity Maintained Action](https://raw.githubusercontent.com/step-security/maintained-actions-assets/main/assets/maintained-action-banner.png)](https://docs.stepsecurity.io/actions/stepsecurity-maintained-actions)
+
 # tfclean
 
 tfclean is a tool for cleaning up Terraform configuration files by automatically removing applied moved, import, and removed blocks. This helps maintain clean and readable Terraform configurations by eliminating blocks that have already served their purpose.
